@@ -20,31 +20,6 @@ void plot_data_and_model(const std::vector<double>& mileage, const std::vector<d
     fflush(gnuplotPipe);
 }
 
-double normalize_feature(double feature, double mean, double stddev) {
-    return (feature - mean) / stddev;
-}
-
-void normalize_features(std::vector<double>& features) {
-    double mean = 0.0, stddev = 0.0;
-
-    // Calculer la moyenne
-    for (double feature : features) {
-        mean += feature;
-    }
-    mean /= features.size();
-
-    // Calculer l'écart type
-    for (double feature : features) {
-        stddev += (feature - mean) * (feature - mean);
-    }
-    stddev = std::sqrt(stddev / features.size());
-
-    // Normaliser les features
-    for (double& feature : features) {
-        feature = normalize_feature(feature, mean, stddev);
-    }
-}
-
 void read_csv(const std::string& filename, std::vector<double>& mileage, std::vector<double>& price) {
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -90,7 +65,6 @@ int main(int argc, char *argv[]) {
     double theta0 = 0;
     double theta1 = 0;
     int iterations = 1000;
-    normalize_features(mileage);
     gradient_descent(mileage, price, theta0, theta1, iterations);
     std::cout << "Trained Parameters: theta0 = " << theta0 << ", theta1 = " << theta1 << std::endl;
     double new_mileage = std::stod(argv[2]);
