@@ -13,11 +13,6 @@ void graph(const std::vector<double>& mileage, const std::vector<double>& price,
         model_file << x << " " << (theta0 + theta1 * x) << std::endl;
     }
     model_file.close();
-
-    std::string gnuplot_commands = "plot 'data.txt' with points title 'Real Data', 'model.txt' with lines title 'Linear Model'";
-    FILE *gnuplotPipe = popen("gnuplot -persistent", "w");
-    fprintf(gnuplotPipe, "%s\n", gnuplot_commands.c_str());
-    fflush(gnuplotPipe);
 }
 
 void read_csv(const std::string& filename, std::vector<double>& mileage, std::vector<double>& price) {
@@ -73,7 +68,5 @@ int main(int argc, char *argv[]) {
     graph(mileage, price, theta0, theta1);
     double mean_relative_error = calculate_mean_relative_error(mileage, price, theta0, theta1);
     std::cout << "Mean Relative Error on Training Data: " << mean_relative_error << std::endl;
-    double mean_squared_error = calculate_mean_squared_error(mileage, price, theta0, theta1);
-    std::cout << "Mean Squared Error on Training Data: " << mean_squared_error << std::endl;
     return (0);
 }

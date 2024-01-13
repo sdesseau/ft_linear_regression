@@ -9,7 +9,7 @@
 #include <fstream>
 #include <sstream>
 
-double estimate_price(double mileage, double theta0, double theta1);
+double estimate_price(double theta0, double theta1, double mileage);
 void gradient_descent(std::vector<double>& mileage, std::vector<double>& price, double& theta0, double& theta1, int iterations);
 double calculate_mean_squared_error(const std::vector<double>& mileage, const std::vector<double>& price, double theta0, double theta1) ;
 double calculate_mean_relative_error(const std::vector<double>& mileage, const std::vector<double>& price, double theta0, double theta1);
