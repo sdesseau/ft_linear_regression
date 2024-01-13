@@ -11,3 +11,15 @@ double calculate_mean_relative_error(const std::vector<double>& mileage, const s
     }
     return (sum_relative_error / m);
 }
+
+double calculate_mean_squared_error(const std::vector<double>& mileage, const std::vector<double>& price, double theta0, double theta1) {
+    double mse = 0.0;
+    int m = mileage.size();
+
+    for (int i = 0; i < m; ++i) {
+        double predicted_price = estimate_price(mileage[i], theta0, theta1);
+        mse += std::pow(predicted_price - price[i], 2);
+    }
+
+    return mse / m;
+}
